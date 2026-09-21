@@ -1,11 +1,11 @@
 import { CreditCard, LayoutDashboard } from 'lucide-react'
 import { FormasPagamento } from './FormasPagamento'
-import { EmConstrucao } from '@/shared/components/EmConstrucao'
+import { Painel } from './Painel'
 
 export const rotasGeral = {
   secao: null,
   itens: [
-    { caminho: '/', titulo: 'Painel', icone: LayoutDashboard, elemento: <EmConstrucao titulo="Painel" sprint={7} /> },
+    { caminho: '/', titulo: 'Painel', icone: LayoutDashboard, elemento: <Painel /> },
   ],
 }
 

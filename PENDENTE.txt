@@ -3,39 +3,42 @@ O QUE FALTA
 Atualizado em 21/09/2026
 ===========================================================
 
-Todas as migrations e todos os testes ja foram rodados no
-Supabase com sucesso. As sprints 0 a 6 estao concluidas e
-testadas pela tela.
+SITUACAO: sistema publicado em https://jurista-beta.vercel.app
+Sprints 0 a 6 concluidas. Sprint 7 (painel, calendario e
+alertas) construida, aguardando 2 queries no Supabase.
 
 -----------------------------------------------------------
-UNICO PENDENTE: PUBLICAR NA INTERNET (VERCEL)
+PENDENTE 1 de 2  ->  MIGRATION DO PAINEL
 -----------------------------------------------------------
-Necessario para o link do devedor funcionar fora do seu
-computador. Passos (eu te acompanho em cada um):
+  cat supabase/migrations/0007_painel.sql | clip
 
-1. Criar conta gratuita em https://vercel.com
-   (pode entrar com a conta do GitHub, se tiver).
+SQL Editor > New query > colar > Run > "Success".
 
-2. Me avisar. Eu preparo o projeto para publicacao.
+-----------------------------------------------------------
+PENDENTE 2 de 2  ->  TESTE DO PAINEL
+-----------------------------------------------------------
+  cat supabase/tests/06_painel.sql | clip
 
-3. Voce autoriza a publicacao e copia as duas chaves do
-   Supabase para a Vercel (as mesmas do arquivo .env.local).
+So depois que o item 1 der Success. Nao deixa dados no banco.
 
-4. No Supabase, em Authentication > URL Configuration,
-   trocar o Site URL para o endereco publicado e adicionar
-   esse endereco em Redirect URLs.
+-----------------------------------------------------------
+AJUSTES DO SUPABASE PARA O SITE PUBLICADO
+-----------------------------------------------------------
+Authentication > URL Configuration:
+  Site URL:       https://jurista-beta.vercel.app
+  Redirect URLs:  https://jurista-beta.vercel.app/**
+                  http://localhost:5173/**   (pode manter)
 
 -----------------------------------------------------------
 ANTES DE USAR COM DADOS REAIS
 -----------------------------------------------------------
 - Trocar a senha admin123 por uma senha forte.
-- Em Authentication > Sign In / Providers > Email,
+- Authentication > Sign In / Providers > Email:
   religar "Confirm email", para ninguem criar conta no seu
-  sistema depois que ele estiver no ar.
+  sistema agora que ele esta na internet.
 
 -----------------------------------------------------------
-DEPOIS DA PUBLICACAO (proximas sprints)
+PROXIMAS SPRINTS
 -----------------------------------------------------------
-Sprint 7: calendario, alertas e painel inicial
 Sprint 8: relatorios (lucro, mais vendidos, a receber)
 Sprint 9: acabamento, testes automaticos e backup
