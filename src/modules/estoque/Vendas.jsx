@@ -8,7 +8,7 @@ import { Badge, EmptyState, PageHeader } from '@/shared/components/Page'
 import { Table } from '@/shared/components/Table'
 import { useConsulta } from '@/shared/hooks/useConsulta'
 import { traduzirErroBanco } from '@/shared/lib/erroBanco'
-import { formatarDataHora, formatarMoeda } from '@/shared/lib/format'
+import { formatarDataHora, formatarMoeda, formatarQuantidade } from '@/shared/lib/format'
 
 export function Vendas() {
   const navigate = useNavigate()
@@ -23,7 +23,7 @@ export function Vendas() {
   const { dados, carregando, erro } = useConsulta(() => {
     let q = supabase
       .from('vendas')
-      .select('*, formas_pagamento(nome)')
+      .select('*, formas_pagamento(nome), venda_itens(quantidade, preco_unit, produtos(nome))')
       .order('data', { ascending: false })
       .limit(200)
     if (de) q = q.gte('data', new Date(`${de}T00:00:00`).toISOString())
@@ -36,7 +36,12 @@ export function Vendas() {
   const termo = busca.trim().toLowerCase()
   const vendas = (dados ?? []).filter((v) => !termo || (v.cliente_nome ?? '').toLowerCase().includes(termo))
 
-  const totalPeriodo = vendas.filter((v) => v.status === 'ativa').reduce((s, v) => s + Number(v.total), 0)
+  const ativas = vendas.filter((v) => v.status === 'ativa')
+  const totalPeriodo = ativas.reduce((s, v) => s + Number(v.total), 0)
+  const itensPeriodo = ativas.reduce(
+    (s, v) => s + (v.venda_itens ?? []).reduce((soma, i) => soma + Number(i.quantidade), 0),
+    0,
+  )
 
   const colunas = [
     {
@@ -49,6 +54,26 @@ export function Vendas() {
       ),
     },
     { chave: 'cliente_nome', titulo: 'Cliente', render: (v) => v.cliente_nome ?? '—' },
+    {
+      chave: 'itens',
+      titulo: 'O que foi vendido',
+      className: 'whitespace-normal',
+      render: (v) => (
+        <div className="max-w-xs">
+          {(v.venda_itens ?? []).map((item, i) => (
+            <p key={i} className="text-slate-700">
+              {formatarQuantidade(item.quantidade)}x {item.produtos?.nome ?? 'Produto removido'}
+              <span className="text-slate-400"> · {formatarMoeda(item.preco_unit)} cada</span>
+            </p>
+          ))}
+        </div>
+      ),
+    },
+    {
+      chave: 'quantidade',
+      titulo: 'Qtd.',
+      render: (v) => formatarQuantidade((v.venda_itens ?? []).reduce((s, i) => s + Number(i.quantidade), 0)),
+    },
     { chave: 'forma', titulo: 'Pagamento', render: (v) => v.formas_pagamento?.nome ?? '—' },
     { chave: 'total', titulo: 'Total', render: (v) => <span className="font-medium">{formatarMoeda(v.total)}</span> },
     {
@@ -115,8 +140,8 @@ export function Vendas() {
           />
           {vendas.length > 0 && (
             <p className="mt-3 text-sm text-slate-600">
-              {vendas.length} venda(s) · total ativo no período:{' '}
-              <span className="font-semibold text-slate-900">{formatarMoeda(totalPeriodo)}</span>
+              {vendas.length} venda(s) · {formatarQuantidade(itensPeriodo)} item(ns) vendido(s) · total ativo no
+              período: <span className="font-semibold text-slate-900">{formatarMoeda(totalPeriodo)}</span>
             </p>
           )}
         </>
