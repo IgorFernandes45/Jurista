@@ -23,7 +23,7 @@ export function Vendas() {
   const { dados, carregando, erro } = useConsulta(() => {
     let q = supabase
       .from('vendas')
-      .select('*, formas_pagamento(nome), venda_itens(quantidade, preco_unit, produtos(nome))')
+      .select('*, formas_pagamento(nome), venda_itens(quantidade, preco_unit, preco_custo_unit, produtos(nome))')
       .order('data', { ascending: false })
       .limit(200)
     if (de) q = q.gte('data', new Date(`${de}T00:00:00`).toISOString())
@@ -42,6 +42,12 @@ export function Vendas() {
     (s, v) => s + (v.venda_itens ?? []).reduce((soma, i) => soma + Number(i.quantidade), 0),
     0,
   )
+
+  const custoDaVenda = (v) =>
+    (v.venda_itens ?? []).reduce((soma, i) => soma + Number(i.quantidade) * Number(i.preco_custo_unit), 0)
+  const lucroDaVenda = (v) => Number(v.total) - custoDaVenda(v)
+
+  const lucroPeriodo = ativas.reduce((s, v) => s + lucroDaVenda(v), 0)
 
   const colunas = [
     {
@@ -76,6 +82,23 @@ export function Vendas() {
     },
     { chave: 'forma', titulo: 'Pagamento', render: (v) => v.formas_pagamento?.nome ?? '—' },
     { chave: 'total', titulo: 'Total', render: (v) => <span className="font-medium">{formatarMoeda(v.total)}</span> },
+    {
+      chave: 'lucro',
+      titulo: 'Lucro',
+      render: (v) => {
+        if (v.status !== 'ativa') return <span className="text-slate-400">—</span>
+        const lucro = lucroDaVenda(v)
+        const margem = Number(v.total) > 0 ? (lucro / Number(v.total)) * 100 : 0
+        return (
+          <div>
+            <p className={lucro >= 0 ? 'font-medium text-green-700' : 'font-medium text-red-600'}>
+              {formatarMoeda(lucro)}
+            </p>
+            <p className="text-xs text-slate-400">{margem.toFixed(0).replace('.', ',')}% · custo {formatarMoeda(custoDaVenda(v))}</p>
+          </div>
+        )
+      },
+    },
     {
       chave: 'status',
       titulo: 'Situação',
@@ -141,7 +164,8 @@ export function Vendas() {
           {vendas.length > 0 && (
             <p className="mt-3 text-sm text-slate-600">
               {vendas.length} venda(s) · {formatarQuantidade(itensPeriodo)} item(ns) vendido(s) · total ativo no
-              período: <span className="font-semibold text-slate-900">{formatarMoeda(totalPeriodo)}</span>
+              período: <span className="font-semibold text-slate-900">{formatarMoeda(totalPeriodo)}</span> · lucro:{' '}
+              <span className="font-semibold text-green-700">{formatarMoeda(lucroPeriodo)}</span>
             </p>
           )}
         </>
