@@ -35,6 +35,8 @@ export function NovaVenda() {
     observacao: '',
   })
   const [produtoSelecionado, setProdutoSelecionado] = useState('')
+  const [quantidadeNova, setQuantidadeNova] = useState('1')
+  const [precoNovo, setPrecoNovo] = useState('')
   const [erro, setErro] = useState('')
   const [salvando, setSalvando] = useState(false)
 
@@ -103,20 +105,33 @@ export function NovaVenda() {
       .filter(Boolean)
   }, [itens, produtos])
 
+  // ao escolher o produto, já sugere o preço do cadastro (editável antes de adicionar)
+  function escolherProduto(id) {
+    setProdutoSelecionado(id)
+    const produto = (produtos ?? []).find((p) => p.id === id)
+    setPrecoNovo(produto ? String(produto.preco_venda) : '')
+    setQuantidadeNova('1')
+  }
+
   function adicionarProduto() {
     const produto = (produtos ?? []).find((p) => p.id === produtoSelecionado)
     if (!produto) return
+    if (num(quantidadeNova) <= 0) return setErro('Informe a quantidade vendida.')
+
+    setErro('')
     setItens((lista) => [
       ...lista,
       {
         produto_id: produto.id,
         nome: produto.nome,
-        quantidade: '1',
-        preco_unit: String(produto.preco_venda),
+        quantidade: String(num(quantidadeNova)),
+        preco_unit: String(num(precoNovo)),
         quantidadeOriginal: 0,
       },
     ])
     setProdutoSelecionado('')
+    setQuantidadeNova('1')
+    setPrecoNovo('')
   }
 
   function alterarItem(indice, campo, valor) {
@@ -181,7 +196,7 @@ export function NovaVenda() {
                 label="Produto"
                 className="flex-1"
                 value={produtoSelecionado}
-                onChange={(e) => setProdutoSelecionado(e.target.value)}
+                onChange={(e) => escolherProduto(e.target.value)}
               >
                 <option value="">Selecione um produto…</option>
                 {(produtos ?? []).map((p) => (
@@ -191,10 +206,36 @@ export function NovaVenda() {
                   </option>
                 ))}
               </Select>
-              <Button icon={Plus} onClick={adicionarProduto} disabled={!produtoSelecionado}>
+              <Input
+                label="Quantidade"
+                type="number"
+                step="0.001"
+                min="0"
+                className="sm:w-32"
+                value={quantidadeNova}
+                onChange={(e) => setQuantidadeNova(e.target.value)}
+              />
+              <Input
+                label="Preço de venda"
+                type="number"
+                step="0.01"
+                min="0"
+                className="sm:w-40"
+                ajuda="Vem do cadastro, dá para mudar."
+                value={precoNovo}
+                onChange={(e) => setPrecoNovo(e.target.value)}
+              />
+              <Button icon={Plus} onClick={adicionarProduto} disabled={!produtoSelecionado} className="sm:mb-6">
                 Adicionar
               </Button>
             </div>
+
+            {itens.length === 0 && (
+              <p className="mt-3 text-sm text-slate-500">
+                Escolha o produto, informe a quantidade e o preço, e clique em Adicionar. Dá para incluir vários
+                produtos na mesma venda.
+              </p>
+            )}
 
             {itens.length > 0 && (
               <div className="mt-4 overflow-x-auto">
