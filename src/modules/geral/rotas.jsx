@@ -1,5 +1,6 @@
-import { BarChart3, CreditCard, LayoutDashboard } from 'lucide-react'
+import { BarChart3, CreditCard, LayoutDashboard, UserRound } from 'lucide-react'
 import { FormasPagamento } from './FormasPagamento'
+import { MinhaConta } from './MinhaConta'
 import { Painel } from './Painel'
 import { Relatorios } from './Relatorios'
 
@@ -15,5 +16,6 @@ export const rotasConfiguracoes = {
   secao: 'Configurações',
   itens: [
     { caminho: '/configuracoes/formas-pagamento', titulo: 'Formas de pagamento', icone: CreditCard, elemento: <FormasPagamento /> },
+    { caminho: '/configuracoes/conta', titulo: 'Minha conta', icone: UserRound, elemento: <MinhaConta /> },
   ],
 }

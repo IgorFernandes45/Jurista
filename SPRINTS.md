@@ -195,11 +195,17 @@ Sistema web com dois módulos independentes (Estoque & Vendas + Cobrança) sobre
 
 **Objetivo:** sistema pronto para uso real.
 
-- [ ] Layout responsivo (celular e tablet) em todas as telas
-- [ ] Estados de carregamento, vazio e erro; validação de formulários; confirmações antes de ações destrutivas
-- [ ] Testes automatizados: Vitest para a lógica JS e testes SQL para juros, estoque, RLS e link público
-- [ ] Domínio próprio na Vercel, se desejado (passo manual guiado)
-- [ ] Backup: rotina de exportação do banco
-- [ ] Guia rápido de uso
+- [x] Layout responsivo conferido nas 13 telas a 375px de largura, sem nenhuma vazando para o lado
+- [x] Estados de carregamento, vazio e erro; validação de formulários; confirmações antes de ações destrutivas
+- [x] Testes automatizados: 21 testes em Vitest (moeda, data, telefone, CSV, explicação dos juros) e 7 suítes SQL (RLS, vendas, juros, pagamentos, link público, painel e relatórios)
+- [x] Publicação na Vercel; domínio próprio fica opcional, quando você quiser
+- [x] Backup: botão em Minha conta que baixa todos os dados num arquivo
+- [x] Guia rápido de uso ([GUIA.md](GUIA.md))
 
 **Pronto quando:** o sistema está publicado, acessível por URL e testado no celular e no computador.
+
+### Entregue além do planejado
+- Tela **Minha conta**: trocar nome e senha e baixar o backup.
+- **Base dos juros** configurável por dívida (sobre a parcela ou sobre o saldo total).
+- **Estorno e edição** de recebimentos.
+- **Recebido por devedor** nos relatórios.

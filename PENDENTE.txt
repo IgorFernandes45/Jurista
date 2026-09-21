@@ -1,32 +1,29 @@
 ===========================================================
-O QUE FALTA
+SITUACAO DO PROJETO
 Atualizado em 21/09/2026
 ===========================================================
 
-SITUACAO: sprints 0 a 8 concluidas e testadas.
-Sistema publicado em https://jurista-beta.vercel.app
-Codigo em https://github.com/IgorFernandes45/Jurista
+Sprints 0 a 9 concluidas e testadas.
+Sistema publicado: https://jurista-beta.vercel.app
+Codigo: https://github.com/IgorFernandes45/Jurista
+Guia de uso: GUIA.md
 
 Nenhuma query pendente no Supabase.
-Sprints 0 a 8 concluidas e testadas.
 
 -----------------------------------------------------------
-AJUSTES DO SUPABASE PARA O SITE PUBLICADO
+O QUE FALTA VOCE FAZER (configuracao, nao e codigo)
 -----------------------------------------------------------
-Authentication > URL Configuration:
-  Site URL:       https://jurista-beta.vercel.app
-  Redirect URLs:  https://jurista-beta.vercel.app/**
-                  http://localhost:5173/**   (pode manter)
+1. Supabase > Authentication > URL Configuration:
+     Site URL:      https://jurista-beta.vercel.app
+     Redirect URLs: https://jurista-beta.vercel.app/**
+                    http://localhost:5173/**  (pode manter)
 
------------------------------------------------------------
-ANTES DE USAR COM DADOS REAIS
------------------------------------------------------------
-- Trocar a senha admin123 por uma senha forte.
-- Authentication > Sign In / Providers > Email:
-  religar "Confirm email", para ninguem criar conta no seu
-  sistema agora que ele esta na internet.
+2. Trocar a senha admin123 por uma senha forte:
+     no sistema, Configuracoes > Minha conta > Trocar senha.
 
------------------------------------------------------------
-PROXIMAS SPRINTS
------------------------------------------------------------
-Sprint 9: acabamento, testes automaticos e backup
+3. Supabase > Authentication > Sign In / Providers > Email:
+     religar "Confirm email", para ninguem criar conta no
+     seu sistema agora que ele esta na internet.
+
+4. De tempos em tempos: Configuracoes > Minha conta >
+     Baixar backup agora (guarde o arquivo em lugar seguro).

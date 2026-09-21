@@ -16,6 +16,8 @@ Cada usuário só enxerga os próprios dados (RLS no banco).
 | Login | Supabase Auth (e-mail e senha) |
 | Regras de negócio | Funções SQL (vendas, juros, pagamentos) |
 
+Sistema publicado: **https://jurista-beta.vercel.app** · Guia de uso: [GUIA.md](GUIA.md)
+
 ## Como rodar
 
 ```bash
@@ -25,6 +27,12 @@ npm run dev
 ```
 
 O app sobe em `http://localhost:5173`.
+
+```bash
+npm test          # testes automáticos (Vitest)
+npm run build     # versão de produção
+npm run lint      # análise do código
+```
 
 ## Banco de dados
 
@@ -38,8 +46,10 @@ Os scripts ficam em `supabase/migrations`, para rodar em ordem no **SQL Editor**
 | `0004_visoes_cobranca.sql` | Visões com saldo e situação de cada dívida |
 | `0005_pagamentos.sql` | Recebimentos, edição e estorno |
 | `0006_area_devedor.sql` | Página pública do devedor (só leitura) |
+| `0007_painel.sql` | Números do painel e produtos em alerta |
+| `0008_relatorios.sql` | Lucro, produtos mais vendidos e resumo da cobrança |
 
-Os testes ficam em `supabase/tests` e rodam no mesmo SQL Editor. Cada um confere as regras
+Os testes do banco ficam em `supabase/tests` e rodam no mesmo SQL Editor. Cada um confere as regras
 (isolamento entre usuários, estoque, juros, pagamentos e o link público) e **não deixa dados no banco**.
 
 ## Organização do código
