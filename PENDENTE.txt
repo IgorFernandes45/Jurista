@@ -3,23 +3,11 @@ O QUE FALTA
 Atualizado em 21/09/2026
 ===========================================================
 
-SITUACAO: sistema publicado em https://jurista-beta.vercel.app
-Sprints 0 a 6 concluidas. Sprint 7 (painel, calendario e
-alertas) construida, aguardando 2 queries no Supabase.
+SITUACAO: sprints 0 a 7 concluidas e testadas.
+Sistema publicado em https://jurista-beta.vercel.app
+Codigo em https://github.com/IgorFernandes45/Jurista
 
------------------------------------------------------------
-PENDENTE 1 de 2  ->  MIGRATION DO PAINEL
------------------------------------------------------------
-  cat supabase/migrations/0007_painel.sql | clip
-
-SQL Editor > New query > colar > Run > "Success".
-
------------------------------------------------------------
-PENDENTE 2 de 2  ->  TESTE DO PAINEL
------------------------------------------------------------
-  cat supabase/tests/06_painel.sql | clip
-
-So depois que o item 1 der Success. Nao deixa dados no banco.
+Nenhuma query pendente no Supabase.
 
 -----------------------------------------------------------
 AJUSTES DO SUPABASE PARA O SITE PUBLICADO
@@ -40,5 +28,6 @@ ANTES DE USAR COM DADOS REAIS
 -----------------------------------------------------------
 PROXIMAS SPRINTS
 -----------------------------------------------------------
-Sprint 8: relatorios (lucro, mais vendidos, a receber)
+Sprint 8: relatorios (lucro por venda e periodo, produtos
+          mais vendidos, recebido x a receber, exportar CSV)
 Sprint 9: acabamento, testes automaticos e backup

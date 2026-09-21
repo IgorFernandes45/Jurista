@@ -162,7 +162,7 @@ Sistema web com dois módulos independentes (Estoque & Vendas + Cobrança) sobre
   - Histórico de pagamentos já feitos
   - Instruções de pagamento (ex.: chave Pix), definidas pelo usuário
 - [x] Tela de "link inválido ou desativado"
-- [ ] Primeira publicação na Vercel (passo manual guiado), para que o link funcione fora do seu computador  <-- ÚNICO ITEM PENDENTE
+- [x] Primeira publicação na Vercel: https://jurista-beta.vercel.app
 - [x] Teste de segurança: token errado ou desativado não mostra nada, e um devedor não consegue ver dados de outro
 
 **Pronto quando:** o link aberto no celular mostra datas, juros acumulados e total corretos, e para de funcionar ao ser desativado.
@@ -171,11 +171,11 @@ Sistema web com dois módulos independentes (Estoque & Vendas + Cobrança) sobre
 
 **Objetivo:** visão do dia a dia dos dois módulos.
 
-- [ ] View SQL de vencimentos com situação (em dia, vence hoje/amanhã, atrasado) e dias de atraso
-- [ ] Calendário mensal com vencimentos por devedor em verde, amarelo e vermelho; clicar no dia abre a lista
-- [ ] Painel de alertas: vencendo nos próximos N dias e atrasados, já com o valor atualizado com juros e atalho para enviar o link ao devedor
-- [ ] Alerta de estoque abaixo do mínimo
-- [ ] Painel inicial com resumo dos dois módulos: vendas do dia e do mês, produtos em alerta, total a receber, total em atraso e vencimentos de hoje
+- [x] Visões SQL de vencimentos com situação (em dia, vence em breve, vence hoje, atrasada, paga) e dias de atraso
+- [x] Calendário mensal com vencimentos por devedor em verde, amarelo e vermelho; clicar no dia abre a lista
+- [x] Painel de alertas: vencendo nos próximos N dias (3, 7, 15 ou 30) e atrasados, já com o valor atualizado com juros, botão de receber e atalho para copiar o link do devedor
+- [x] Alerta de estoque abaixo do mínimo
+- [x] Painel inicial com resumo dos dois módulos: vendas do dia e do mês, produtos em alerta, total a receber, total em atraso, vencimentos de hoje e dos próximos 7 dias, e recebido no mês
 
 **Pronto quando:** ao entrar no sistema, o painel mostra corretamente quem está atrasado, o que vence e o que está com estoque baixo.
 
