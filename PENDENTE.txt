@@ -3,16 +3,12 @@ O QUE FALTA
 Atualizado em 21/09/2026
 ===========================================================
 
-SITUACAO: sprints 0 a 7 concluidas e testadas.
+SITUACAO: sprints 0 a 8 concluidas e testadas.
 Sistema publicado em https://jurista-beta.vercel.app
 Codigo em https://github.com/IgorFernandes45/Jurista
 
-PENDENTE: 2 queries no Supabase (sprint 8 - relatorios)
-
-  1)  cat supabase/migrations/0008_relatorios.sql | clip
-  2)  cat supabase/tests/07_relatorios.sql | clip
-
-SQL Editor > New query > colar > Run > "Success".
+Nenhuma query pendente no Supabase.
+Sprints 0 a 8 concluidas e testadas.
 
 -----------------------------------------------------------
 AJUSTES DO SUPABASE PARA O SITE PUBLICADO

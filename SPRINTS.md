@@ -183,11 +183,11 @@ Sistema web com dois módulos independentes (Estoque & Vendas + Cobrança) sobre
 
 **Objetivo:** números para tomar decisão.
 
-- [ ] Lucro por venda e por período (preço de venda − custo)
-- [ ] Produtos mais vendidos e curva de faturamento por período
-- [ ] Vendas por forma de pagamento
-- [ ] Cobrança: recebido × a receber × em atraso por período; juros recebidos; recebimentos por forma de pagamento
-- [ ] Exportação para CSV das listas principais
+- [x] Lucro por período usando o custo guardado no item da venda, com margem e ticket médio
+- [x] Produtos mais vendidos (quantidade, valor e lucro) e faturamento dia a dia
+- [x] Vendas por forma de pagamento
+- [x] Cobrança: recebido × a receber × em atraso por período; juros recebidos; recebido por devedor e por forma de pagamento
+- [x] Exportação para CSV de cada tabela, no formato que o Excel brasileiro abre direto
 
 **Pronto quando:** os relatórios batem com os dados das telas de vendas e recebimentos.
 
